@@ -14,7 +14,7 @@ This is a Model Context Protocol (MCP) server that connects to the Microsoft Gra
 You can install the Microsoft Graph MCP Server with a single command:
 
 ```bash
-curl -s https://raw.githubusercontent.com/your-username/mcp-graph-server/main/install.py | python3
+curl -s https://raw.githubusercontent.com/uniQuk/mcpEntra/main/install.py | python3
 ```
 
 This will:
@@ -37,8 +37,8 @@ If you prefer to set up manually, follow these steps:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/mcp-graph-server.git
-cd mcp-graph-server
+git clone https://github.com/uniQuk/mcpEntra.git
+cd mcpEntra
 ```
 
 ### 2. Install Requirements

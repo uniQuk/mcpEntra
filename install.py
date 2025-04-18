@@ -13,7 +13,7 @@ import shutil
 from pathlib import Path
 
 # GitHub repository URL
-REPO_URL = "https://github.com/your-username/mcp-graph-server.git"  # Change this to your actual repo
+REPO_URL = "https://github.com/uniQuk/mcpEntra.git"  # Updated to use the correct repo
 INSTALL_DIR = Path.home() / "mcp-graph-server"
 
 def check_requirements():
