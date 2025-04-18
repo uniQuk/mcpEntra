@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-graph-server"
+version = "0.1.0"
+description = "Microsoft Graph MCP Server"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+dependencies = [
+    "fastapi>=0.95.0",
+    "uvicorn>=0.21.1",
+    "azure-identity>=1.12.0",
+    "msgraph-sdk>=1.0.0",
+    "mcp>=0.13.0",
+    "pydantic>=1.10.7",
+    "typing-extensions>=4.5.0",
+    "python-dotenv>=1.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/your-username/mcp-graph-server"
+Issues = "https://github.com/your-username/mcp-graph-server/issues"
+
+[project.scripts]
+mcp-graph-server = "mcp_microsoft_graph:main" 
