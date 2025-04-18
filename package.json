@@ -1,0 +1,42 @@
+{
+  "name": "@mcp/entra",
+  "version": "1.0.0",
+  "description": "Microsoft Graph MCP Server for AI assistants",
+  "main": "index.js",
+  "bin": {
+    "mcp-entra": "./bin/mcp-entra.js"
+  },
+  "scripts": {
+    "start": "node ./bin/mcp-entra.js",
+    "install-python-deps": "node ./scripts/install-deps.js",
+    "postinstall": "npm run install-python-deps"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.1.1"
+  },
+  "keywords": [
+    "mcp",
+    "microsoft-graph",
+    "entra",
+    "azure-active-directory",
+    "ai",
+    "claude",
+    "copilot",
+    "cursor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/mcp-entra.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/mcp-entra/issues"
+  },
+  "homepage": "https://github.com/yourusername/mcp-entra#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 

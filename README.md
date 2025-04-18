@@ -6,8 +6,34 @@ This is a Model Context Protocol (MCP) server that connects to the Microsoft Gra
 
 - Securely authenticate to Microsoft Graph using client credentials flow
 - Query users, groups, and other Microsoft 365 data
-- API key protection for MCP server access
+- API key protection for MCP server access (automatically bypassed when used with AI assistants)
 - Simple integration with Claude Desktop, VS Code, or other MCP clients
+
+## Quick Start (NPM Installation)
+
+You can install the Microsoft Graph MCP Server with npm:
+
+```bash
+npm install -g @mcp/entra
+```
+
+After installation, start the server with:
+
+```bash
+mcp-entra
+```
+
+On first run, you'll be guided through the setup process to configure your credentials.
+
+## Quick Start (GitHub Installation)
+
+You can install directly from GitHub:
+
+```bash
+npm install -g github:yourusername/mcp-entra
+```
+
+For AI assistants like Claude Desktop, VS Code with Copilot, or Cursor, you can reference the GitHub repository directly in your configuration.
 
 ## Quick Start (One-Line Installation)
 
@@ -67,7 +93,11 @@ Before you can use this MCP server, you'll need:
 
 1. **Python 3.8+**
 2. **Microsoft Entra ID App Registration** with appropriate permissions
-3. **API Keys** for securing the MCP server (generated during setup)
+3. **API Keys** for securing the MCP server (generated during setup, optional when used with AI assistants)
+
+## AI Assistant Integration
+
+When used with AI assistants like GitHub Copilot, Claude, or Cursor, the API key authentication is automatically bypassed for a more seamless experience. The server detects when it's running in an AI assistant environment and disables the API key requirement.
 
 ## Creating a Microsoft Entra ID App Registration
 
@@ -93,21 +123,69 @@ After running the setup script, you'll receive configuration snippets for differ
 
 1. Open VS Code
 2. Run the "MCP: Add server" command
-3. Choose "HTTP (Server-sent events)" as the transport
-4. Enter `http://localhost:8000/sse` as the URL
-5. Add the API key header in the configuration file (provided by setup script)
+3. Choose one of these methods:
+   
+   **Method 1 - HTTP (SSE):**
+   - Choose "HTTP (Server-sent events)" as the transport
+   - Enter `http://localhost:8000/sse` as the URL
+   - Add the API key header in the configuration file (provided by setup script)
+   
+   **Method 2 - NPM Package:**
+   - Choose "NPM Package"
+   - Package name: `@mcp/entra` or `github:yourusername/mcp-entra`
+   - Enter your Tenant ID, Client ID, and Client Secret
+   - Set Server ID to "microsoft-graph"
+   - Add `"AI_ASSISTANT": "true"` to the environment variables
 
 ### Configure in Claude Desktop
 
 1. Open the Claude Desktop app
 2. Go to Settings > MCP > Add New MCP Server
-3. Add the configuration provided by the setup script
+3. Add this configuration (using your own values):
+```json
+{
+  "mcpServers": {
+    "microsoft-graph": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "github:yourusername/mcp-entra"
+      ],
+      "env": {
+        "TENANT_ID": "<tenant-id>",
+        "CLIENT_ID": "<client-id>",
+        "CLIENT_SECRET": "<client-secret>",
+        "AI_ASSISTANT": "true"
+      }
+    }
+  }
+}
+```
 
 ### Configure in Cursor
 
 1. Open Cursor
 2. Access the MCP settings
-3. Add the configuration provided by the setup script
+3. Add the configuration provided by the setup script or use:
+```json
+{
+  "mcpServers": {
+    "microsoft-graph": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "github:yourusername/mcp-entra"
+      ],
+      "env": {
+        "TENANT_ID": "<tenant-id>",
+        "CLIENT_ID": "<client-id>",
+        "CLIENT_SECRET": "<client-secret>",
+        "AI_ASSISTANT": "true"
+      }
+    }
+  }
+}
+```
 
 ## Available Tools
 
@@ -121,7 +199,8 @@ The MCP server exposes the following tools:
 
 ## Security Considerations
 
-- Always use strong, unique API keys (the setup script generates one for you)
+- API key authentication is automatically bypassed when running with AI assistants
+- For non-AI usage, always use strong, unique API keys (the setup script generates one for you)
 - Store your client credentials securely
 - Consider deploying behind a reverse proxy for additional security
 - Set appropriate Microsoft Graph API permissions (least privilege)
@@ -138,6 +217,7 @@ To add more Microsoft Graph API capabilities:
 
 **Invalid API Key Error**:
 - Make sure the API key in your client configuration matches one of the keys in your environment variables
+- Or set `AI_ASSISTANT=true` in your environment variables when using with AI assistants
 
 **Authentication Error**:
 - Verify your Microsoft Graph client credentials are correct
