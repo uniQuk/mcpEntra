@@ -9,89 +9,91 @@ This is a Model Context Protocol (MCP) server that connects to the Microsoft Gra
 - API key protection for MCP server access (automatically bypassed when used with AI assistants)
 - Simple integration with Claude Desktop, VS Code, or other MCP clients
 
-## Quick Start (NPM Installation)
-
-You can install the Microsoft Graph MCP Server with npm:
-
-```bash
-npm install -g @mcp/entra
-```
-
-After installation, start the server with:
-
-```bash
-mcp-entra
-```
-
-On first run, you'll be guided through the setup process to configure your credentials.
-
 ## Quick Start (GitHub Installation)
 
 You can install directly from GitHub:
 
 ```bash
-npm install -g github:yourusername/mcp-entra
+# Global installation
+npm install -g github:YOUR_USERNAME/mcp-entra
+
+# Run the server
+mcp-entra
 ```
 
-For AI assistants like Claude Desktop, VS Code with Copilot, or Cursor, you can reference the GitHub repository directly in your configuration.
+On first run, you'll be guided through the setup process to configure your Microsoft Entra ID credentials.
 
-## Quick Start (One-Line Installation)
+## AI Assistant Integration
 
-You can install the Microsoft Graph MCP Server with a single command:
+For AI assistants like Claude Desktop, VS Code with Copilot, or Cursor, you can reference the GitHub repository directly in your configuration:
 
-```bash
-curl -s https://raw.githubusercontent.com/uniQuk/mcpEntra/main/install.py | python3
+### Claude Desktop Configuration
+```json
+{
+  "mcpServers": {
+    "Microsoft-Entra": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "github:YOUR_USERNAME/mcp-entra"
+      ],
+      "env": {
+        "TENANT_ID": "your-tenant-id",
+        "CLIENT_ID": "your-client-id",
+        "CLIENT_SECRET": "your-client-secret",
+        "AI_ASSISTANT": "true"
+      }
+    }
+  }
+}
 ```
 
-This will:
-1. Clone the repository to your home directory
-2. Install all required dependencies
-3. Set up a launcher script in your PATH
-4. Run the interactive setup to configure your credentials
-5. Generate configuration snippets for VS Code, Claude Desktop, and Cursor
-
-After installation, you can start the server anytime with:
-
-```bash
-mcp-graph-server
+### VS Code/GitHub Copilot Configuration
+```json
+{
+  "servers": {
+    "Microsoft-Entra": {
+      "type": "npm",
+      "packageInfo": {
+        "name": "github:uniQuk/mcp-entra"
+      },
+      "env": {
+        "TENANT_ID": "your-tenant-id",
+        "CLIENT_ID": "your-client-id",
+        "CLIENT_SECRET": "your-client-secret",
+        "AI_ASSISTANT": "true"
+      }
+    }
+  }
+}
 ```
 
-## Manual Setup
-
-If you prefer to set up manually, follow these steps:
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/uniQuk/mcpEntra.git
-cd mcpEntra
-```
-
-### 2. Install Requirements
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Run the Setup Script
-
-```bash
-python setup_mcp.py
-```
-
-This will prompt you for your Microsoft Entra ID credentials and generate configurations for your MCP clients.
-
-### 4. Run the Server
-
-```bash
-python -m mcp_microsoft_graph
+### Cursor Configuration
+```json
+{
+  "mcpServers": {
+    "Microsoft-Entra": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "github:uniQuk/mcp-entra"
+      ],
+      "env": {
+        "TENANT_ID": "your-tenant-id",
+        "CLIENT_ID": "your-client-id",
+        "CLIENT_SECRET": "your-client-secret",
+        "AI_ASSISTANT": "true"
+      }
+    }
+  }
+}
 ```
 
 ## Prerequisites
 
 Before you can use this MCP server, you'll need:
 
-1. **Python 3.8+**
+1. **Node.js 14+** and **Python 3.8+**
 2. **Microsoft Entra ID App Registration** with appropriate permissions
 3. **API Keys** for securing the MCP server (generated during setup, optional when used with AI assistants)
 
@@ -114,78 +116,6 @@ When used with AI assistants like GitHub Copilot, Claude, or Cursor, the API key
    - Group.Read.All
    - (Add other permissions as needed for your use case)
 10. Click "Grant admin consent for [your tenant]"
-
-## Connecting to the MCP Server
-
-After running the setup script, you'll receive configuration snippets for different clients:
-
-### Configure in VS Code
-
-1. Open VS Code
-2. Run the "MCP: Add server" command
-3. Choose one of these methods:
-   
-   **Method 1 - HTTP (SSE):**
-   - Choose "HTTP (Server-sent events)" as the transport
-   - Enter `http://localhost:8000/sse` as the URL
-   - Add the API key header in the configuration file (provided by setup script)
-   
-   **Method 2 - NPM Package:**
-   - Choose "NPM Package"
-   - Package name: `@mcp/entra` or `github:yourusername/mcp-entra`
-   - Enter your Tenant ID, Client ID, and Client Secret
-   - Set Server ID to "microsoft-graph"
-   - Add `"AI_ASSISTANT": "true"` to the environment variables
-
-### Configure in Claude Desktop
-
-1. Open the Claude Desktop app
-2. Go to Settings > MCP > Add New MCP Server
-3. Add this configuration (using your own values):
-```json
-{
-  "mcpServers": {
-    "microsoft-graph": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "github:yourusername/mcp-entra"
-      ],
-      "env": {
-        "TENANT_ID": "<tenant-id>",
-        "CLIENT_ID": "<client-id>",
-        "CLIENT_SECRET": "<client-secret>",
-        "AI_ASSISTANT": "true"
-      }
-    }
-  }
-}
-```
-
-### Configure in Cursor
-
-1. Open Cursor
-2. Access the MCP settings
-3. Add the configuration provided by the setup script or use:
-```json
-{
-  "mcpServers": {
-    "microsoft-graph": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "github:yourusername/mcp-entra"
-      ],
-      "env": {
-        "TENANT_ID": "<tenant-id>",
-        "CLIENT_ID": "<client-id>",
-        "CLIENT_SECRET": "<client-secret>",
-        "AI_ASSISTANT": "true"
-      }
-    }
-  }
-}
-```
 
 ## Available Tools
 
